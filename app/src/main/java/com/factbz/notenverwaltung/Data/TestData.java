@@ -33,15 +33,6 @@ public class TestData {
         Subject subject7 = new Subject(7, "Mathe", semester2);
         Subject subject8 = new Subject(8, "Schwimmen", semester2);
         Subject subject9 = new Subject(9, "Informatik", semester2);
-        semester1.subjects.add(subject1);
-        semester1.subjects.add(subject2);
-        semester1.subjects.add(subject3);
-        semester1.subjects.add(subject4);
-        semester1.subjects.add(subject5);
-        semester2.subjects.add(subject6);
-        semester2.subjects.add(subject7);
-        semester2.subjects.add(subject8);
-        semester2.subjects.add(subject9);
 
         Grade grade01 = new Grade(1, new Date(), 5, subject1);
         Grade grade02 = new Grade(1, new Date(), 4, subject2);
