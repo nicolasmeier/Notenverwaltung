@@ -1,5 +1,6 @@
-package com.factbz.notenverwaltung;
+package com.factbz.notenverwaltung.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,11 +12,11 @@ public class Subject {
     public Semester semester;
     public List<Grade> grades;
 
-    public Subject(int id, String name, Semester semester, List<Grade> grades) {
+    public Subject(int id, String name, Semester semester) {
         this.id = id;
         this.name = name;
         this.semester = semester;
-        this.grades = grades;
+        this.grades = new ArrayList<>();
 
         semester.subjects.add(this);
     }

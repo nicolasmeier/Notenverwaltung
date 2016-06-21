@@ -1,4 +1,4 @@
-package com.factbz.notenverwaltung;
+package com.factbz.notenverwaltung.Model;
 
 import java.util.Date;
 

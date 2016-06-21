@@ -1,6 +1,6 @@
-package com.factbz.notenverwaltung;
+package com.factbz.notenverwaltung.Model;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,10 +11,10 @@ public class Semester {
     public String name;
     public List<Subject> subjects;
 
-    public Semester(int id, String name, List<Subject> subjects) {
+    public Semester(int id, String name) {
         this.id = id;
         this.name = name;
-        this.subjects = subjects;
+        this.subjects = new ArrayList<>();
     }
 
     @Override
