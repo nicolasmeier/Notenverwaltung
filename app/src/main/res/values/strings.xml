@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Notenverwaltung</string>
     <string name="title_activity_subject">SubjectActivity</string>
+    <string name="title_activity_grade">GradeActivity</string>
 </resources>

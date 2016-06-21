@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.factbz.notenverwaltung.Adapter.SemesterAdapter;
@@ -26,20 +27,27 @@ public class SubjectActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        TestData testData = new TestData();
+
         Intent intent = getIntent();
-        String title = (String) intent.getExtras().get("Title");
         int semesterID = (int) intent.getExtras().get("SemesterID");
 
-        this.setTitle(title);
-
-
-        TestData testData = new TestData();
+        this.setTitle(testData.getSemesters().get(semesterID).name + " - Fächer");
 
         SubjectAdapter adapter = new SubjectAdapter(this, (ArrayList<Subject>) testData.getSemesters().get(semesterID).subjects);
 
 
         ListView listView = (ListView) findViewById(R.id.lvSubject);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(view.getContext(), GradeActivity.class);
+                intent.putExtra("SubjectID", i);
+                startActivity(intent);
+            }
+        });
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
