@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <TextView
-        android:text="Semester hinzufügen"
+        android:text="Fach hinzufügen"
         android:textAlignment="center"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -14,7 +14,7 @@
         android:background="#FFFFBB33"
         android:contentDescription="@string/app_name" />
     <EditText
-        android:id="@+id/etSemester"
+        android:id="@+id/etSubject"
         android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,5 +22,5 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Semestertitel" />
+        android:hint="Fachtitel" />
 </LinearLayout>
