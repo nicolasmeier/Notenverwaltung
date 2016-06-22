@@ -11,10 +11,12 @@ import com.factbz.notenverwaltung.Model.Grade;
 import com.factbz.notenverwaltung.Model.Subject;
 import com.factbz.notenverwaltung.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
- * Created by Nicolas on 21.06.2016.
+ * Created by Nicolas on 21.06.2016
  */
 public class GradeAdapter extends ArrayAdapter<Grade> {
     public GradeAdapter(Context context, ArrayList<Grade> grades) {
@@ -33,7 +35,9 @@ public class GradeAdapter extends ArrayAdapter<Grade> {
         TextView tvDate = (TextView) convertView.findViewById(R.id.tvDate);
         TextView tvGrade = (TextView) convertView.findViewById(R.id.tvGrade);
         // Populate the data into the template view using the data object
-        tvDate.setText(grade.date.toString());
+
+        SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy", Locale.GERMAN);
+        tvDate.setText(df.format(grade.date));
         tvGrade.setText(String.format("%.2f", grade.grade));
         // Return the completed view to render on screen
         return convertView;
