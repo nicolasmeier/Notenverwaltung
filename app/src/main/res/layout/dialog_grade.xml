@@ -24,7 +24,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Datum"/>
+        android:hint="Datum dd-MM-yyyy"/>
 
     <EditText
         android:layout_width="match_parent"

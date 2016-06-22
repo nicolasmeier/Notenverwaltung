@@ -16,15 +16,17 @@ import com.factbz.notenverwaltung.Adapter.SemesterAdapter;
 import com.factbz.notenverwaltung.Adapter.SubjectAdapter;
 import com.factbz.notenverwaltung.Data.DBAdapter;
 import com.factbz.notenverwaltung.Dialog.AddSemesterDialogFragment;
+import com.factbz.notenverwaltung.Dialog.AddSubjectDialogFragment;
 import com.factbz.notenverwaltung.Model.Semester;
 import com.factbz.notenverwaltung.Model.Subject;
 
 import java.util.ArrayList;
 
-public class SubjectActivity extends AppCompatActivity {
+public class SubjectActivity extends AppCompatActivity implements AddSubjectDialogFragment.SubjectDialogListener{
 
     public DBAdapter dbAdapter;
     private SubjectAdapter adapter;
+    private int semesterID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class SubjectActivity extends AppCompatActivity {
         dbAdapter.open();
 
         Intent intent = getIntent();
-        int semesterID = (int) intent.getExtras().get("SemesterID");
+        semesterID = (int) intent.getExtras().get("SemesterID");
         String semesterName = dbAdapter.getSemester(semesterID).getString(1);
 
         this.setTitle(semesterName + " - Fächer");
@@ -57,7 +59,6 @@ public class SubjectActivity extends AppCompatActivity {
         }
         adapter = new SubjectAdapter(this,mArrayList);
 
-
         ListView listView = (ListView) findViewById(R.id.lvSubject);
         listView.setAdapter(adapter);
 
@@ -71,14 +72,24 @@ public class SubjectActivity extends AppCompatActivity {
         });
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabSubject);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                DialogFragment d = new AddSubjectDialogFragment();
+                d.show(getFragmentManager(),"Subject");
             }
         });
     }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, String name) {
+        adapter.add(new Subject(name, 0f));
+        dbAdapter.insertSubject(name, semesterID);
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        //cancel
+    }
 }

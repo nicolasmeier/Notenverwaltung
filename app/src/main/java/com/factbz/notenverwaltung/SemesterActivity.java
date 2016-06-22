@@ -57,7 +57,7 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabSemester);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

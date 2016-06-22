@@ -24,7 +24,7 @@ public class DBAdapter {
     public static final String COLUMN_SUBJECT_NAME = "name";
     public static final String COLUMN_SUBJECT_SEMESTER_FK = "semesterFK";
 
-    public static final String TABLE_GRADE = "note";
+    public static final String TABLE_GRADE = "grade";
     public static final String COLUMN_GRADE_ID = "id";
     public static final String COLUMN_GRADE_DATE = "date";
     public static final String COLUMN_GRADE_GRADE = "grade";
