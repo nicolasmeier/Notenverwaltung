@@ -56,6 +56,7 @@ public class GradeActivity extends AppCompatActivity {
             }
         }catch (Exception e){
             // ignore
+            // new
         }
 
         adapter = new GradeAdapter(this, mArrayList);
