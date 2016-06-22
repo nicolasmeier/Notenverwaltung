@@ -187,7 +187,7 @@ public class DBAdapter {
     //----- Grade -----
 
     // inserts a grade into the database
-    public long insertGrade(float grade, String date, int subject_fk){
+    public long insertGrade(String date, float grade, int subject_fk){
         ContentValues initialValues = new ContentValues();
         initialValues.put(COLUMN_GRADE_GRADE, grade);
         initialValues.put(COLUMN_GRADE_DATE, date);
@@ -218,7 +218,7 @@ public class DBAdapter {
     }
 
     // update a grade
-    public boolean updateGrade(int rowId, float grade, String date, int subjectfk){
+    public boolean updateGrade(int rowId, String date, float grade, int subjectfk){
         ContentValues args = new ContentValues();
         args.put(COLUMN_GRADE_ID, rowId);
         args.put(COLUMN_GRADE_GRADE, grade);

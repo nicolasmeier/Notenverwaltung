@@ -1,5 +1,6 @@
 package com.factbz.notenverwaltung;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import com.factbz.notenverwaltung.Adapter.GradeAdapter;
 import com.factbz.notenverwaltung.Adapter.SemesterAdapter;
 import com.factbz.notenverwaltung.Data.DBAdapter;
+import com.factbz.notenverwaltung.Dialog.AddGradeDialogFragment;
 import com.factbz.notenverwaltung.Model.Grade;
 import com.factbz.notenverwaltung.Model.Subject;
 
@@ -21,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class GradeActivity extends AppCompatActivity {
+public class GradeActivity extends AppCompatActivity implements AddGradeDialogFragment.GradeDialogListener{
 
     public DBAdapter dbAdapter;
     private GradeAdapter adapter;
@@ -75,4 +77,14 @@ public class GradeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, Date date, Float grade) {
+        adapter.add(new Grade(date, grade));
+        dbAdapter.insertGrade(date.toString(), grade, subjectID);
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
+    }
 }
