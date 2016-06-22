@@ -7,12 +7,10 @@ import java.util.List;
  * Created by Nicolas on 21.06.2016.
  */
 public class Semester {
-    public int id;
     public String name;
     public List<Subject> subjects;
 
-    public Semester(int id, String name) {
-        this.id = id;
+    public Semester( String name) {
         this.name = name;
         this.subjects = new ArrayList<>();
     }

@@ -23,8 +23,8 @@ public class TestData {
         subjects = new ArrayList<>();
         grades = new ArrayList<>();
 
-        Semester semester1 = new Semester(1, "Herbst Semester 2016");
-        Semester semester2 = new Semester(2, "Frühlings Semester 2016");
+        Semester semester1 = new Semester("Herbst Semester 2016");
+        Semester semester2 = new Semester("Frühlings Semester 2016");
         semesters.add(semester1);
         semesters.add(semester2);
 
