@@ -44,6 +44,8 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
             }
         }catch (Exception e){
             // ignore
+            DialogFragment d = new AddSemesterDialogFragment();
+            d.show(getFragmentManager(),"Semester");
         }
 
         adapter = new SemesterAdapter(this, mArrayList);
