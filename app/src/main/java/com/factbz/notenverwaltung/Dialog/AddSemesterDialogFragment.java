@@ -7,6 +7,8 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 
 import com.factbz.notenverwaltung.R;
@@ -29,11 +31,14 @@ public class AddSemesterDialogFragment extends DialogFragment {
 
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(R.layout.dialog_semester)
+
+        final View v_iew =LayoutInflater.from(getContext()).inflate(R.layout.dialog_semester, null, false);
+
+        builder.setView(v_iew)
                 .setPositiveButton("Hinzufügen", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText editText = (EditText) ;
-                        mListener.onDialogPositiveClick(AddSemesterDialogFragment.this);
+                        EditText editText = (EditText) v_iew.findViewById(R.id.etSemester);
+                        mListener.onDialogPositiveClick(AddSemesterDialogFragment.this, editText.getText().toString());
                     }
                 })
                 .setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {

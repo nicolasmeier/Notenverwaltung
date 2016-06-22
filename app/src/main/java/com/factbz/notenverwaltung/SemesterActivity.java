@@ -33,6 +33,7 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
         setContentView(R.layout.activity_semester);
 
         dbAdapter = new DBAdapter(this);
+        dbAdapter.open();
 
         ArrayList<Semester> mArrayList = new ArrayList<Semester>();
         try {
@@ -64,7 +65,6 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
             @Override
             public void onClick(View view) {
                 DialogFragment d = new AddSemesterDialogFragment();
-                d.setTargetFragment(this,1);
                 d.show(getFragmentManager(),"Semester");
             }
         });
@@ -72,8 +72,8 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog,String name) {
-        dbAdapter.insertSemester(editText.getText().toString());
-        adapter.add(new Semester(editText.getText().toString()));
+        adapter.add(new Semester(name));
+        dbAdapter.insertSemester(name);
     }
 
     @Override
