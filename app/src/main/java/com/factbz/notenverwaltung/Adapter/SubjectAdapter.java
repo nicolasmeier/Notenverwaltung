@@ -34,13 +34,7 @@ public class SubjectAdapter extends ArrayAdapter<Subject> {
         TextView tvAvg = (TextView) convertView.findViewById(R.id.tvAvg);
         // Populate the data into the template view using the data object
         tvName.setText(subject.name);
-
-        float avgGrade = 0;
-        for (Grade grade : subject.grades) {
-            avgGrade += grade.grade;
-        }
-        avgGrade = avgGrade / subject.grades.size();
-        tvAvg.setText(String.format("%.2f", avgGrade));
+        tvAvg.setText(String.format("%.2f", subject.avg));
         // Return the completed view to render on screen
         return convertView;
     }
