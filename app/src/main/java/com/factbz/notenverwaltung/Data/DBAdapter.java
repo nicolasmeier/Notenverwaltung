@@ -55,8 +55,8 @@ public class DBAdapter {
 
     final Context context;
 
-    GradesDatabaseHelper DBHelper;
-    SQLiteDatabase db;
+    private GradesDatabaseHelper DBHelper;
+    private SQLiteDatabase db;
 
     public DBAdapter(Context ctx) {
         this.context = ctx;
@@ -84,9 +84,9 @@ public class DBAdapter {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(DB_NAME, "Upgrading database from version " + oldVersion + " to " + newVersion);
-            db.execSQL("DROP TABE IF EXISTS " + TABLE_SEMESTER);
-            db.execSQL("DROP TABE IF EXISTS " + TABLE_SUBJECT);
-            db.execSQL("DROP TABE IF EXISTS " + TABLE_GRADE);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_SEMESTER);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUBJECT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_GRADE);
             onCreate(db);
         }
     }
