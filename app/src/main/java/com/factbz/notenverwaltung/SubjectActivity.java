@@ -17,10 +17,12 @@ import com.factbz.notenverwaltung.Adapter.SubjectAdapter;
 import com.factbz.notenverwaltung.Data.DBAdapter;
 import com.factbz.notenverwaltung.Dialog.AddSemesterDialogFragment;
 import com.factbz.notenverwaltung.Dialog.AddSubjectDialogFragment;
+import com.factbz.notenverwaltung.Model.Grade;
 import com.factbz.notenverwaltung.Model.Semester;
 import com.factbz.notenverwaltung.Model.Subject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SubjectActivity extends AppCompatActivity implements AddSubjectDialogFragment.SubjectDialogListener{
 
@@ -44,6 +46,8 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
 
         this.setTitle(semesterName + " - Fächer");
 
+        float avg;
+        int count;
 
         ArrayList<Subject> mArrayList = new ArrayList<Subject>();
         try {
@@ -51,7 +55,18 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
             for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
                 // The Cursor is now set to the right position
                 if (mCursor.getInt(2) == semesterID) {
-                    mArrayList.add(new Subject(mCursor.getString(1),5.5f));
+                    Cursor gradeCursor = dbAdapter.getAllGrades();
+                    avg = 0;
+                    count = 0;
+                    for (gradeCursor.moveToFirst(); !gradeCursor.isAfterLast(); gradeCursor.moveToNext()) {
+                        // The Cursor is now set to the right position
+                        if (gradeCursor.getInt(4) == mCursor.getInt(0)) {
+                            avg = gradeCursor.getFloat(2);
+                            count++;
+                        }
+                    }
+                    avg = avg / count;
+                    mArrayList.add(new Subject(mCursor.getString(1),avg));
                 }
             }
         }catch (Exception e){
