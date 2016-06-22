@@ -67,7 +67,7 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
         ListView listView = (ListView) findViewById(R.id.lvGrade);
         listView.setAdapter(adapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabGrade);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
