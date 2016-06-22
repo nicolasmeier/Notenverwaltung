@@ -11,13 +11,15 @@ import android.widget.ListView;
 
 import com.factbz.notenverwaltung.Adapter.GradeAdapter;
 import com.factbz.notenverwaltung.Adapter.SemesterAdapter;
-import com.factbz.notenverwaltung.Data.TestData;
+import com.factbz.notenverwaltung.Data.DBAdapter;
 import com.factbz.notenverwaltung.Model.Grade;
-import com.factbz.notenverwaltung.Model.Semester;
 
 import java.util.ArrayList;
 
 public class GradeActivity extends AppCompatActivity {
+
+    public DBAdapter dbAdapter;
+    private GradeAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +28,15 @@ public class GradeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TestData testData = new TestData();
+        dbAdapter = new DBAdapter(this);
+        dbAdapter.open();
 
         Intent intent = getIntent();
         int subjectID = (int) intent.getExtras().get("SubjectID");
 
         this.setTitle(testData.getSubjects().get(subjectID).name + " - Noten");
 
-        GradeAdapter adapter = new GradeAdapter(this, (ArrayList<Grade>) testData.getSubjects().get(subjectID).grades);
+        adapter = new GradeAdapter(this, (ArrayList<Grade>) testData.getSubjects().get(subjectID).grades);
 
 
         ListView listView = (ListView) findViewById(R.id.lvGrade);

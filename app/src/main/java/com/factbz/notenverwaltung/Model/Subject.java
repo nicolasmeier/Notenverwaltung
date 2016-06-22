@@ -7,18 +7,12 @@ import java.util.List;
  * Created by Nicolas on 21.06.2016.
  */
 public class Subject {
-    public int id;
     public String name;
-    public Semester semester;
-    public List<Grade> grades;
+    public float avg;
 
-    public Subject(int id, String name, Semester semester) {
-        this.id = id;
+    public Subject(String name,float avg) {
         this.name = name;
-        this.semester = semester;
-        this.grades = new ArrayList<>();
-
-        semester.subjects.add(this);
+        this.avg = avg;
     }
 
 

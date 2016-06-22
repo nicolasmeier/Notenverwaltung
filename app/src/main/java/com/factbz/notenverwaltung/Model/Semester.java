@@ -8,11 +8,9 @@ import java.util.List;
  */
 public class Semester {
     public String name;
-    public List<Subject> subjects;
 
     public Semester( String name) {
         this.name = name;
-        this.subjects = new ArrayList<>();
     }
 
     @Override

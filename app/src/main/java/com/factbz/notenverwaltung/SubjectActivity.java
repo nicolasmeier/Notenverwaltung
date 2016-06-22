@@ -1,6 +1,8 @@
 package com.factbz.notenverwaltung;
 
+import android.app.DialogFragment;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,13 +14,17 @@ import android.widget.ListView;
 
 import com.factbz.notenverwaltung.Adapter.SemesterAdapter;
 import com.factbz.notenverwaltung.Adapter.SubjectAdapter;
-import com.factbz.notenverwaltung.Data.TestData;
+import com.factbz.notenverwaltung.Data.DBAdapter;
+import com.factbz.notenverwaltung.Dialog.AddSemesterDialogFragment;
 import com.factbz.notenverwaltung.Model.Semester;
 import com.factbz.notenverwaltung.Model.Subject;
 
 import java.util.ArrayList;
 
 public class SubjectActivity extends AppCompatActivity {
+
+    public DBAdapter dbAdapter;
+    private SubjectAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +33,29 @@ public class SubjectActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TestData testData = new TestData();
+        dbAdapter = new DBAdapter(this);
+        dbAdapter.open();
 
         Intent intent = getIntent();
         int semesterID = (int) intent.getExtras().get("SemesterID");
+        String semesterName = dbAdapter.getSemester(semesterID).getString(1);
 
-        this.setTitle(testData.getSemesters().get(semesterID).name + " - Fächer");
+        this.setTitle(semesterName + " - Fächer");
 
-        SubjectAdapter adapter = new SubjectAdapter(this, (ArrayList<Subject>) testData.getSemesters().get(semesterID).subjects);
+
+        ArrayList<Subject> mArrayList = new ArrayList<Subject>();
+        try {
+            Cursor mCursor = dbAdapter.getAllSubjects();
+            for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
+                // The Cursor is now set to the right position
+                if (mCursor.getInt(2) == semesterID) {
+                    mArrayList.add(new Subject(mCursor.getString(1),5.5f));
+                }
+            }
+        }catch (Exception e){
+            // ignore
+        }
+        adapter = new SubjectAdapter(this,mArrayList);
 
 
         ListView listView = (ListView) findViewById(R.id.lvSubject);

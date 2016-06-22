@@ -1,22 +1,17 @@
 package com.factbz.notenverwaltung;
 
-import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.LocalSocket;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import com.factbz.notenverwaltung.Adapter.SemesterAdapter;
 import com.factbz.notenverwaltung.Data.DBAdapter;
-import com.factbz.notenverwaltung.Data.TestData;
 import com.factbz.notenverwaltung.Dialog.AddSemesterDialogFragment;
 import com.factbz.notenverwaltung.Model.Semester;
 
