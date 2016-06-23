@@ -91,6 +91,12 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
                                 adapter.remove(s);
                                 adapter.notifyDataSetChanged();
                                 dbAdapter.deleteSubject(dbAdapter.getSubjectByName(s.name).getInt(0));
+                                Cursor gradeCursor = dbAdapter.getAllSubjects();
+                                for (gradeCursor.moveToFirst(); !gradeCursor.isAfterLast(); gradeCursor.moveToNext()) {
+                                    if (gradeCursor.getInt(3) == s.id) {
+                                        dbAdapter.deleteGrade(gradeCursor.getInt(0));
+                                    }
+                                }
                             }
                         })
                         .setNegativeButton("Nein", new DialogInterface.OnClickListener() {

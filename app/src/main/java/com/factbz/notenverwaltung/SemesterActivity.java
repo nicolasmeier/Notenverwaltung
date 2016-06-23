@@ -16,6 +16,7 @@ import com.factbz.notenverwaltung.Adapter.SemesterAdapter;
 import com.factbz.notenverwaltung.Data.DBAdapter;
 import com.factbz.notenverwaltung.Dialog.AddSemesterDialogFragment;
 import com.factbz.notenverwaltung.Model.Semester;
+import com.factbz.notenverwaltung.Model.Subject;
 
 import java.util.ArrayList;
 
@@ -72,6 +73,19 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
                                 adapter.remove(s);
                                 adapter.notifyDataSetChanged();
                                 dbAdapter.deleteSemester(dbAdapter.getSemesterByName(s.name).getInt(0));
+                                Cursor subjectCursor = dbAdapter.getAllSubjects();
+                                for (subjectCursor.moveToFirst(); !subjectCursor.isAfterLast(); subjectCursor.moveToNext()) {
+                                    // The Cursor is now set to the right position
+                                    if (subjectCursor.getInt(2) == s.id) {
+                                        Cursor gradeCursor = dbAdapter.getAllGrades();
+                                        for (gradeCursor.moveToFirst(); !gradeCursor.isAfterLast(); gradeCursor.moveToNext()) {
+                                            if (gradeCursor.getInt(3) == subjectCursor.getInt(0)) {
+                                                dbAdapter.deleteGrade(gradeCursor.getInt(0));
+                                            }
+                                        }
+                                        dbAdapter.deleteSubject(subjectCursor.getInt(0));
+                                    }
+                                }
                             }
                         })
                         .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
