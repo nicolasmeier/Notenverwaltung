@@ -112,7 +112,7 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
     public void onDialogPositiveClick(DialogFragment dialog, Date date, Float grade) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         dbAdapter.insertGrade(df.format(date), grade, subjectID);
-        adapter.add(new Grade(dbAdapter, date, grade));
+        adapter.add(new Grade(dbAdapter, date, grade)); //TODO
     }
 
     @Override
