@@ -56,8 +56,8 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
             for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
                 // The Cursor is now set to the right position
                 if (mCursor.getInt(3) == subjectID) {
-                    Date finDate = format.parse(mCursor.getString(1));
-                    mArrayList.add(new Grade(mCursor.getInt(0), finDate,mCursor.getFloat(2)));
+                    Date finDate = format.parse(mCursor.getString(2));
+                    mArrayList.add(new Grade(finDate,mCursor.getFloat(1)));
                 }
             }
         }catch (Exception e){
