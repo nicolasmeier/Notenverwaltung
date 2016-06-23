@@ -97,4 +97,10 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
     public void onDialogNegativeClick(DialogFragment dialog) {
         //cancel
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }
