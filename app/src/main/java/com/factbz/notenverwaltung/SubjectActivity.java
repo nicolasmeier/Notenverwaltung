@@ -58,15 +58,20 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
                     Cursor gradeCursor = dbAdapter.getAllGrades();
                     avg = 0;
                     count = 0;
-                    for (gradeCursor.moveToFirst(); !gradeCursor.isAfterLast(); gradeCursor.moveToNext()) {
-                        // The Cursor is now set to the right position
-                        if (gradeCursor.getInt(4) == mCursor.getInt(0)) {
-                            avg = gradeCursor.getFloat(2);
-                            count++;
+                    try {
+
+                        for (gradeCursor.moveToFirst(); !gradeCursor.isAfterLast(); gradeCursor.moveToNext()) {
+                            // The Cursor is now set to the right position
+                            if (gradeCursor.getInt(3) == mCursor.getInt(0)) {
+                                avg = gradeCursor.getFloat(2);
+                                count++;
+                            }
                         }
+                    }catch (Exception e){
+                        // ignorieren da cursor leer
                     }
                     avg = avg / count;
-                    mArrayList.add(new Subject(mCursor.getString(1),avg));
+                    mArrayList.add(new Subject(mCursor.getInt(0),mCursor.getString(1),avg));
                 }
             }
         }catch (Exception e){
@@ -81,7 +86,7 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(view.getContext(), GradeActivity.class);
-                intent.putExtra("SubjectID", i+1);
+                intent.putExtra("SubjectID", adapter.getItem(i).id);
                 startActivity(intent);
             }
         });
@@ -100,7 +105,7 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String name) {
         dbAdapter.insertSubject(name, semesterID);
-        adapter.add(new Subject(name, 0f));
+        adapter.add(new Subject(dbAdapter.getSubjectByName(name).getInt(0),name, 0f));
     }
 
     @Override

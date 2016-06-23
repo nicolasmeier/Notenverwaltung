@@ -36,7 +36,7 @@ public class GradeAdapter extends ArrayAdapter<Grade> {
         TextView tvGrade = (TextView) convertView.findViewById(R.id.tvGrade);
         // Populate the data into the template view using the data object
 
-        SimpleDateFormat df = new SimpleDateFormat("dd.mm.yyyy", Locale.GERMAN);
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
         tvDate.setText(df.format(grade.date));
         tvGrade.setText(String.format("%.2f", grade.grade));
         // Return the completed view to render on screen

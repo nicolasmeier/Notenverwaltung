@@ -35,7 +35,7 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
             Cursor mCursor = dbAdapter.getAllSemesters();
             for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
                 // The Cursor is now set to the right position
-                mArrayList.add(new Semester(mCursor.getString(1)));
+                mArrayList.add(new Semester(mCursor.getInt(0),mCursor.getString(1)));
             }
         }catch (Exception e){
             // ignore
@@ -52,7 +52,7 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(view.getContext(), SubjectActivity.class);
-                intent.putExtra("SemesterID", i+1);
+                intent.putExtra("SemesterID", adapter.getItem(i).id);
                 startActivity(intent);
             }
         });
@@ -70,8 +70,7 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
     @Override
     public void onDialogPositiveClick(DialogFragment dialog,String name) {
         dbAdapter.insertSemester(name);
-        adapter.add(new Semester(name));
-
+        adapter.add(new Semester(dbAdapter.getSemesterByName(name).getInt(0),name));
     }
 
     @Override

@@ -45,13 +45,13 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
 
         this.setTitle(subjectName + " - Noten");
 
-        DateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<Grade> mArrayList = new ArrayList<Grade>();
         try {
             Cursor mCursor = dbAdapter.getAllGrades();
             for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
                 // The Cursor is now set to the right position
-                if (mCursor.getInt(4) == subjectID) {
+                if (mCursor.getInt(3) == subjectID) {
                     Date finDate = format.parse(mCursor.getString(1));
                     mArrayList.add(new Grade(finDate,mCursor.getFloat(2)));
                 }
@@ -79,7 +79,8 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, Date date, Float grade) {
-        dbAdapter.insertGrade(date.toString(), grade, subjectID);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        dbAdapter.insertGrade(df.format(date), grade, subjectID);
         adapter.add(new Grade(date, grade));
     }
 

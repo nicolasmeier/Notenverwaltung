@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.sql.Date;
+
 /**
  * Created by Pascal Affentranger on 21.06.2016.
  */
@@ -133,6 +135,17 @@ public class DBAdapter {
         return myCursor;
     }
 
+    // retrieves a particular semester by name from the database
+    public Cursor getSemesterByName(String name) throws SQLException {
+        Cursor myCursor =
+                db.query(true, TABLE_SEMESTER, new String[] {COLUMN_SEMESTER_ID, COLUMN_SEMESTER_NAME},
+                        COLUMN_SEMESTER_NAME + "= '" + name + "'", null, null, null, null, null);
+        if(myCursor != null){
+            myCursor.moveToFirst();
+        }
+        return myCursor;
+    }
+
     // update a semester
     public boolean updateSemester(int rowId, String name){
         ContentValues args = new ContentValues();
@@ -168,6 +181,17 @@ public class DBAdapter {
         Cursor myCursor =
                 db.query(true, TABLE_SUBJECT, new String[] {COLUMN_SUBJECT_ID, COLUMN_SUBJECT_NAME, COLUMN_SUBJECT_SEMESTER_FK},
                         COLUMN_SUBJECT_ID + "=" + rowId, null, null, null, null, null);
+        if(myCursor != null){
+            myCursor.moveToFirst();
+        }
+        return myCursor;
+    }
+
+    // retrievs a particular subject by name from the database
+    public Cursor getSubjectByName(String name) throws SQLException {
+        Cursor myCursor =
+                db.query(true, TABLE_SUBJECT, new String[] {COLUMN_SUBJECT_ID, COLUMN_SUBJECT_NAME, COLUMN_SUBJECT_SEMESTER_FK},
+                        COLUMN_SUBJECT_NAME + "= '" + name + "'" , null, null, null, null, null);
         if(myCursor != null){
             myCursor.moveToFirst();
         }
