@@ -99,6 +99,19 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
     public void onDialogPositiveClick(DialogFragment dialog,String name) {
         dbAdapter.insertSemester(name);
         adapter.add(new Semester(dbAdapter.getSemesterByName(name).getInt(0),name));
+        try {
+            Cursor mCursor = dbAdapter.getAllSemesters();
+            for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
+                // The Cursor is now set to the right position
+                Boolean isNew = true;
+                for (int i = 0; i < adapter.getCount(); i++){
+                    if ( mCursor.getInt(0) == adapter.getItem(i).id) { isNew = false; }
+                }
+                if (isNew) adapter.add(new Semester(mCursor.getInt(0),name));
+            }
+        }catch (Exception e){
+            // ignore
+        }
     }
 
     @Override

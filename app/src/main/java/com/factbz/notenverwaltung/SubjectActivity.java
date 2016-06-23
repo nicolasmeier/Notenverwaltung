@@ -118,7 +118,21 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String name) {
         dbAdapter.insertSubject(name, semesterID);
-        adapter.add(new Subject(dbAdapter.getSubjectByName(name).getInt(0),name));
+        try {
+            Cursor mCursor = dbAdapter.getAllSubjects();
+            for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
+                // The Cursor is now set to the right position
+                if (mCursor.getInt(2) == semesterID) {
+                    Boolean isNew = true;
+                    for (int i = 0; i < adapter.getCount(); i++){
+                        if (mCursor.getInt(0) == adapter.getItem(i).id) isNew = false;
+                    }
+                    if (isNew) adapter.add(new Subject(mCursor.getInt(0),name));
+                }
+            }
+        }catch (Exception e){
+            // ignore
+        }
     }
 
     @Override
