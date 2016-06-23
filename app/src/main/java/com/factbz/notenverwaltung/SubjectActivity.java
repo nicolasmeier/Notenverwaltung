@@ -81,7 +81,7 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(view.getContext(), GradeActivity.class);
-                intent.putExtra("SubjectID", i);
+                intent.putExtra("SubjectID", i+1);
                 startActivity(intent);
             }
         });
@@ -99,8 +99,8 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String name) {
-        adapter.add(new Subject(name, 0f));
         dbAdapter.insertSubject(name, semesterID);
+        adapter.add(new Subject(name, 0f));
     }
 
     @Override

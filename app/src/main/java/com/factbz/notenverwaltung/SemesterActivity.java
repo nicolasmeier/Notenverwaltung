@@ -52,7 +52,7 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(view.getContext(), SubjectActivity.class);
-                intent.putExtra("SemesterID", i);
+                intent.putExtra("SemesterID", i+1);
                 startActivity(intent);
             }
         });
@@ -69,8 +69,9 @@ public class SemesterActivity extends AppCompatActivity implements AddSemesterDi
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog,String name) {
-        adapter.add(new Semester(name));
         dbAdapter.insertSemester(name);
+        adapter.add(new Semester(name));
+
     }
 
     @Override
