@@ -55,23 +55,8 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
             for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
                 // The Cursor is now set to the right position
                 if (mCursor.getInt(2) == semesterID) {
-                    Cursor gradeCursor = dbAdapter.getAllGrades();
-                    avg = 0;
-                    count = 0;
-                    try {
 
-                        for (gradeCursor.moveToFirst(); !gradeCursor.isAfterLast(); gradeCursor.moveToNext()) {
-                            // The Cursor is now set to the right position
-                            if (gradeCursor.getInt(3) == mCursor.getInt(0)) {
-                                avg = gradeCursor.getFloat(2);
-                                count++;
-                            }
-                        }
-                    }catch (Exception e){
-                        // ignorieren da cursor leer
-                    }
-                    avg = avg / count;
-                    mArrayList.add(new Subject(mCursor.getInt(0),mCursor.getString(1),avg));
+                    mArrayList.add(new Subject(mCursor.getInt(0),mCursor.getString(1)));
                 }
             }
         }catch (Exception e){
@@ -105,7 +90,7 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, String name) {
         dbAdapter.insertSubject(name, semesterID);
-        adapter.add(new Subject(dbAdapter.getSubjectByName(name).getInt(0),name, 0f));
+        adapter.add(new Subject(dbAdapter.getSubjectByName(name).getInt(0),name));
     }
 
     @Override

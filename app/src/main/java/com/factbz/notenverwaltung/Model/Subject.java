@@ -9,12 +9,10 @@ import java.util.List;
 public class Subject {
     public int id;
     public String name;
-    public float avg;
 
-    public Subject(int id,String name,float avg) {
+    public Subject(int id,String name) {
         this.id = id;
         this.name = name;
-        this.avg = avg;
     }
 
 
