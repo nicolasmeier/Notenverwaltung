@@ -1,6 +1,8 @@
 package com.factbz.notenverwaltung;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -88,6 +90,32 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
                 Intent intent = new Intent(view.getContext(), GradeActivity.class);
                 intent.putExtra("SubjectID", adapter.getItem(i).id);
                 startActivity(intent);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {
+                final Subject s = adapter.getItem(position);
+                AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+                alert.setTitle("Löschen?")
+                        .setMessage("Möchten sie das Fach " + s.name + " endgültig löschen?")
+                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                adapter.remove(s);
+                                adapter.notifyDataSetChanged();
+                                dbAdapter.deleteSubject(dbAdapter.getSubjectByName(s.name).getInt(0));
+                            }
+                        })
+                        .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+                AlertDialog dialog = alert.create();
+                dialog.show();
+                return true;
             }
         });
 

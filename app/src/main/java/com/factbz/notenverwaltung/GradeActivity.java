@@ -1,6 +1,8 @@
 package com.factbz.notenverwaltung;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.factbz.notenverwaltung.Adapter.GradeAdapter;
@@ -16,6 +19,7 @@ import com.factbz.notenverwaltung.Adapter.SemesterAdapter;
 import com.factbz.notenverwaltung.Data.DBAdapter;
 import com.factbz.notenverwaltung.Dialog.AddGradeDialogFragment;
 import com.factbz.notenverwaltung.Model.Grade;
+import com.factbz.notenverwaltung.Model.Semester;
 import com.factbz.notenverwaltung.Model.Subject;
 
 import java.text.DateFormat;
@@ -53,7 +57,7 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
                 // The Cursor is now set to the right position
                 if (mCursor.getInt(3) == subjectID) {
                     Date finDate = format.parse(mCursor.getString(1));
-                    mArrayList.add(new Grade(finDate,mCursor.getFloat(2)));
+                    mArrayList.add(new Grade(mCursor.getInt(0), finDate,mCursor.getFloat(2)));
                 }
             }
         }catch (Exception e){
@@ -66,6 +70,33 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
 
         ListView listView = (ListView) findViewById(R.id.lvGrade);
         listView.setAdapter(adapter);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {
+                final Grade g = adapter.getItem(position);
+                AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+                alert.setTitle("Löschen?")
+                        .setMessage("Möchten sie die Note vom " + g.date + " endgültig löschen?")
+                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                adapter.remove(g);
+                                adapter.notifyDataSetChanged();
+                                dbAdapter.deleteGrade(g.id);
+                            }
+                        })
+                        .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                AlertDialog dialog = alert.create();
+                dialog.show();
+                return true;
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabGrade);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +112,7 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
     public void onDialogPositiveClick(DialogFragment dialog, Date date, Float grade) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         dbAdapter.insertGrade(df.format(date), grade, subjectID);
-        adapter.add(new Grade(date, grade));
+        adapter.add(new Grade(dbAdapter, date, grade));
     }
 
     @Override
