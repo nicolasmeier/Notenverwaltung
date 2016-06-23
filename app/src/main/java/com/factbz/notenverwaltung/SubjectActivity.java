@@ -38,6 +38,7 @@ public class SubjectActivity extends AppCompatActivity implements AddSubjectDial
         setContentView(R.layout.activity_subject);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         dbAdapter = new DBAdapter(this);
         dbAdapter.open();

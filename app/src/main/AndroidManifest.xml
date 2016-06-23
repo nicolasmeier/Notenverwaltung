@@ -17,11 +17,11 @@
         </activity>
         <activity
             android:name=".SubjectActivity"
-            android:label="@string/title_activity_grade"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".SemesterActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".GradeActivity"
-            android:label="@string/title_activity_grade"
+            android:parentActivityName=".SubjectActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

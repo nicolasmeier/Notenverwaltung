@@ -39,6 +39,7 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
         setContentView(R.layout.activity_grade);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         dbAdapter = new DBAdapter(this);
         dbAdapter.open();
