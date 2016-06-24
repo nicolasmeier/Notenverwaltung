@@ -8,11 +8,13 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.factbz.notenverwaltung.Filter.InputFilterMinMax;
 import com.factbz.notenverwaltung.Model.Grade;
 import com.factbz.notenverwaltung.R;
 
@@ -73,7 +75,7 @@ public class AddGradeDialogFragment extends DialogFragment {
             }
         });
 
-
+        editGrade.setFilters(new InputFilter[]{ new InputFilterMinMax(1.0f,6.0f)});
 
         builder.setView(v_iew)
                 .setPositiveButton("Hinzufügen", new DialogInterface.OnClickListener() {
