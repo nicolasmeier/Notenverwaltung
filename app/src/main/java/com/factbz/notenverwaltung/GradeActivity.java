@@ -77,10 +77,11 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {
+                DateFormat df = new SimpleDateFormat("EEEE dd.MMMM.yyyy");
                 final Grade g = adapter.getItem(position);
                 AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
                 alert.setTitle("Löschen?")
-                        .setMessage("Möchten sie die Note vom " + g.date + " endgültig löschen?")
+                        .setMessage("Möchten sie die Note vom " + df.format(g.date) + " endgültig löschen?")
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
