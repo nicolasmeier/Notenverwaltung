@@ -8,8 +8,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -107,6 +109,14 @@ public class GradeActivity extends AppCompatActivity implements AddGradeDialogFr
                 d.show(getFragmentManager(),"Grade");
             }
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), SubjectActivity.class);
+        myIntent.putExtra("SemesterID", dbAdapter.getSubject(subjectID).getInt(2));
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 
     @Override
