@@ -16,7 +16,6 @@ public class Grade {
         this.grade = grade;
     }
 
-
     @Override
     public String toString() {
         return this.date.toString() + " - " + this.grade;

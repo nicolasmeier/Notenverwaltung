@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.factbz.notenverwaltung.Data.DBAdapter;
-import com.factbz.notenverwaltung.Model.Grade;
 import com.factbz.notenverwaltung.Model.Subject;
 import com.factbz.notenverwaltung.R;
 
@@ -37,27 +36,31 @@ public class SubjectAdapter extends ArrayAdapter<Subject> {
         // Populate the data into the template view using the data object
         tvName.setText(subject.name);
 
-        DBAdapter dbAdapter = new DBAdapter(parent.getContext());
+        float averageGrade = getAverageGrade(parent.getContext(),subject.id);
+        tvAvg.setText(String.format("%.2f", averageGrade));
+        // Return the completed view to render on screen
+        return convertView;
+    }
+
+    public float getAverageGrade(Context context, int subjectId){
+        DBAdapter dbAdapter = new DBAdapter(context);
         dbAdapter.open();
         Cursor gradeCursor = dbAdapter.getAllGrades();
-        float avg = 0;
+        float sum = 0;
         int count = 0;
         try {
 
             for (gradeCursor.moveToFirst(); !gradeCursor.isAfterLast(); gradeCursor.moveToNext()) {
                 // The Cursor is now set to the right position
-                if (gradeCursor.getInt(3) == subject.id) {
-                    avg += gradeCursor.getFloat(1);
+                if (gradeCursor.getInt(3) == subjectId) {
+                    sum += gradeCursor.getFloat(1);
                     count++;
                 }
             }
         }catch (Exception e){
             // ignorieren da cursor leer
         }
-        avg = (float) (avg / count);
-        tvAvg.setText(String.format("%.2f", avg));
-        // Return the completed view to render on screen
-        return convertView;
+        return (sum / count);
     }
 
 }
